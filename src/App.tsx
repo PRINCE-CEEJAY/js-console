@@ -42,13 +42,13 @@ console.log('Hello world!');
 
   useEffect(() => {
     function onMessage(event: MessageEvent) {
-      const data = event.data as any;
+      const data = event.data;
       if (!data || data.source !== 'playground') return;
 
       if (data.type === 'log') {
         const arr = Array.isArray(data.payload) ? data.payload : [data.payload];
         const formatted = arr
-          .map((a) => (typeof a === 'string' ? a : JSON.stringify(a)))
+          .map((a: string) => (typeof a === 'string' ? a : JSON.stringify(a)))
           .join(' ');
         setLogs((prev) => [...prev, formatted]);
       } else if (data.type === 'error') {
